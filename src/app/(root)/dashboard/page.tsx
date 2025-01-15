@@ -7,6 +7,10 @@ import {useRouter} from "next/navigation";
 
 const Dashboard = () => {
     const router = useRouter();
+    const dashboardLinks = sidebarLinks.filter((item) =>
+        item.label !== 'Dashboard' && item.label !== 'Settings'
+    );
+
     return (
         <div className="flex flex-col items-center gap-10">
             <HeaderBox
@@ -16,7 +20,7 @@ const Dashboard = () => {
             />
 
             <div className="flex flex-col gap-4 w-[400px]">
-                {sidebarLinks.map((item) => (
+                {dashboardLinks.map((item) => (
                     <Card key={item.label} className="dashboard-card" onClick={() => router.push(item.route)}>
                         <div className="flex items-center gap-3">
                             <item.logo size={24} color={'black'}/>

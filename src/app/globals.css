@@ -54,7 +54,7 @@
 
   /* Sidebar */
   .sidebar {
-    @apply sticky-pos h-full w-[240px] lg:w-[260px] border-r border-gray-200 bg-white text-white max-md:hidden p-4 xl:p-6;
+    @apply fixed left-0 top-0 h-screen w-[240px] lg:w-[260px] border-r border-gray-200 bg-white text-white max-md:hidden p-4 xl:p-6;
   }
 
   .sidebar-logo {
@@ -67,11 +67,16 @@
 
   /* Navbar */
   .navbar {
-    @apply sticky-pos flex h-20 items-center justify-between md:justify-end p-4 xl:p-6 border-b;
+    @apply sticky-pos flex h-20 items-center justify-between md:justify-end p-4 xl:p-6 border-b bg-white;
   }
 
   /* Dashboard */
   .dashboard-card {
     @apply flex justify-between items-center p-4 cursor-pointer hover:shadow-credit;
+  }
+
+  /* Conversation */
+  .conversation-button {
+    @apply col-span-12 md:col-span-2 xl:col-span-1 bg-bank-gradient font-semibold text-white shadow-form;
   }
 }

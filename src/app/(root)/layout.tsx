@@ -8,7 +8,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <div className="sidebar">
                 <Sidebar />
             </div>
-            <div className="flex-1 flex flex-col">
+            <div className="flex-1 flex flex-col md:ml-[240px] lg:ml-[260px]">
                 <Navbar />
                 <div className="p-4 xl:p-6">
                     {children}
