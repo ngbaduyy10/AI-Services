@@ -79,4 +79,9 @@
   .conversation-button {
     @apply col-span-12 md:col-span-2 xl:col-span-1 bg-bank-gradient font-semibold text-white shadow-form;
   }
+
+  /* Image */
+  .image-button {
+    @apply col-span-12 lg:col-span-2 bg-bank-gradient font-semibold text-white shadow-form;
+  }
 }

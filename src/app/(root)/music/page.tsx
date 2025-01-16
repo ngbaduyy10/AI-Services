@@ -10,21 +10,15 @@ import {LoaderCircle} from "lucide-react";
 import {useState} from "react";
 import axios from "axios";
 import {useRouter} from "next/navigation";
-import ReactMarkdown from "react-markdown";
 
 const formSchema = z.object({
     prompt: z.string().min(1, "Prompt is required"),
 })
 
-interface Message {
-    role: string;
-    content: string;
-}
-
 const Conversation = () => {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
-    const [messages, setMessages] = useState<Message[]>([]);
+    const [music, setMusic] = useState<string>("");
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -36,13 +30,13 @@ const Conversation = () => {
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             setLoading(true);
-            setMessages((prev) => [...prev, { role: "user", content: values.prompt }]);
-            const response = await axios.post("/api/conversation", { messages: values.prompt, history: messages });
-            if (response.data.message) {
-                setMessages((prev) => [...prev, { role: "model", content: response.data.message }]);
+            const response = await axios.post("/api/music", { prompt: values.prompt });
+            if(response.data.music) {
+                setMusic(response.data.music);
                 form.reset();
                 router.refresh();
             }
+
         } catch (error) {
             console.log(error);
         } finally {
@@ -53,8 +47,8 @@ const Conversation = () => {
     return (
         <div className="flex flex-col gap-8">
             <HeaderBox
-                title={"Conversation"}
-                subtext={"Most advanced conversation model"}
+                title={"Music"}
+                subtext={"Turn your prompt into a song"}
                 dashboard={false}
             />
 
@@ -89,17 +83,11 @@ const Conversation = () => {
                 </div>
             )}
 
-            <div className="flex flex-col-reverse gap-2">
-                {messages?.map((message, index) => (
-                    <div key={index} className={`flex ${message.role ==="user" ? 'justify-end' : 'justify-start'}`}>
-                        <div className={`border rounded-2xl p-3 w-fit ${message.role === "model" && "bg-bank-sub-gradient"}`}>
-                            <ReactMarkdown>
-                                {message.content}
-                            </ReactMarkdown>
-                        </div>
-                    </div>
-                ))}
-            </div>
+            {music && (
+                <audio controls className="w-full">
+                    <source src={music} type="audio/mpeg"/>
+                </audio>
+            )}
         </div>
     );
 }
